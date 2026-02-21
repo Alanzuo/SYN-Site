@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SYN — Live Tonight. Lead Tomorrow.</title>
-  <meta name="description" content="SYN is a luxury alcohol-metabolizing supplement for high performers. Eliminate brain fog and protect cognitive clarity after client dinners and networking events.">
+  <title>SYN | Hangover Prevention for Executives | Clinical NAC + Alpha-GPC</title>
+  <meta name="description" content="Wake up ready after client dinners. Clinical-dose NAC (600mg) + Alpha-GPC for cognitive clarity. 30-day guarantee. Used by 10,000+ executives.">
   <meta property="og:title" content="SYN — Live Tonight. Lead Tomorrow.">
   <meta property="og:description" content="The performance supplement for professionals who drink. Eliminate brain fog. Protect your edge.">
   <meta property="og:type" content="website">
@@ -19,6 +19,26 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200;12..96,400;12..96,600;12..96,800&family=DM+Serif+Display:ital@0;1&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
   <script src="https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "SYN-2",
+    "description": "Premium hangover prevention supplement for executives. Clinical-dose NAC + Alpha-GPC for cognitive clarity.",
+    "brand": { "@type": "Brand", "name": "SYN" },
+    "offers": {
+      "@type": "Offer",
+      "price": "115.00",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "500"
+    }
+  }
+  </script>
   <style>
     :root {
       --green-deepest: #050a05;
@@ -522,7 +542,7 @@
       max-height: 0; overflow: hidden; transition: max-height 0.5s var(--ease), padding 0.5s var(--ease);
       padding: 0 0;
     }
-    .faq-item.open .faq-a { max-height: 300px; padding: 0 0 1.5rem; }
+    .faq-item.open .faq-a { max-height: 500px; padding: 0 0 1.5rem; }
     .faq-a p {
       font-family: var(--font-body); font-size: 1.1rem; font-weight: 300; color: var(--white-dim); line-height: 1.8;
     }
@@ -884,6 +904,84 @@
       .popup-submit { width: 100%; }
     }
 
+    /* ── Hero Guarantee ── */
+    .hero-guarantee {
+      margin-top: 1.5rem; padding: 0.8rem 1.5rem;
+      border: 1px solid rgba(90,122,94,0.25); background: rgba(45,107,58,0.06);
+      display: inline-flex; align-items: center; gap: 0.8rem;
+      font-family: var(--font-body); font-size: 0.78rem; color: var(--white-dim);
+    }
+    .guarantee-icon { color: var(--green-sage); font-size: 0.9rem; }
+
+    /* ── Product Guarantee Badge ── */
+    .product-guarantee-badge {
+      padding: 0.8rem 1rem; background: rgba(168,199,127,0.08);
+      border-left: 3px solid var(--green-lime); font-family: var(--font-body);
+      font-size: 0.85rem; color: var(--white-dim); margin-bottom: 1rem; border-radius: 4px;
+    }
+    .product-guarantee-badge strong { color: var(--white); font-weight: 600; }
+
+    /* ── Stats Band ── */
+    .stats-band {
+      padding: 4rem 2rem; background: var(--green-deepest);
+      border-bottom: 1px solid var(--white-ghost);
+    }
+    .stats-inner {
+      max-width: 900px; margin: 0 auto; display: flex;
+      align-items: center; justify-content: center; gap: 3rem;
+    }
+    .stat-item { text-align: center; }
+    .stat-number {
+      font-family: var(--font-display); font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 800; color: var(--white); letter-spacing: -0.02em;
+      line-height: 1; margin-bottom: 0.5rem;
+    }
+    .stat-label {
+      font-family: var(--font-body); font-size: 0.85rem; font-weight: 300;
+      color: var(--white-dim); letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .stat-divider { width: 1px; height: 40px; background: var(--white-ghost); }
+
+    /* ── Pricing Pull-Quote ── */
+    .pricing-testimonial-pullquote {
+      max-width: 480px; margin: 0 auto 2.5rem; padding: 2rem;
+      border-left: 3px solid var(--green-lime); background: rgba(45,107,58,0.04);
+      text-align: center; border-radius: 4px;
+    }
+    .pullquote-stars { color: var(--green-sage); font-size: 0.85rem; letter-spacing: 0.2em; margin-bottom: 1rem; }
+    .pullquote-text {
+      font-family: var(--font-accent); font-size: 1.2rem; font-style: italic;
+      color: var(--white); line-height: 1.6; margin-bottom: 0.8rem;
+    }
+    .pullquote-author { font-family: var(--font-body); font-size: 0.8rem; font-weight: 400; color: var(--white-dim); }
+
+    /* ── Price Daily ── */
+    .price-daily {
+      font-family: var(--font-body); font-size: 0.75rem; font-weight: 300;
+      color: var(--green-sage); margin-top: 0.3rem; letter-spacing: 0.04em;
+    }
+
+    /* ── Trust Badge Row ── */
+    .trust-badge-row {
+      display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;
+      padding: 2rem 0; border-top: 1px solid var(--white-ghost); margin-top: 2rem;
+    }
+    .badge-item {
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      font-family: var(--font-body); font-size: 0.7rem; font-weight: 300;
+      color: var(--white-dim); letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .badge-item svg { width: 32px; height: 32px; opacity: 0.6; fill: currentColor; }
+
+    /* ── Mobile: new elements ── */
+    @media (max-width: 768px) {
+      .stats-inner { flex-direction: column; gap: 2rem; }
+      .stat-divider { display: none; }
+      .trust-badge-row { gap: 1.5rem; }
+      .pricing-testimonial-pullquote { padding: 1.5rem; margin-bottom: 2rem; }
+      .pullquote-text { font-size: 1.05rem; }
+    }
+
     ::selection { background: rgba(90,122,94,0.3); color: var(--white); }
   </style>
 </head>
@@ -939,10 +1037,14 @@
         <h1 class="hero-logo">SYN</h1>
         <p class="hero-accent">Live Tonight. Lead Tomorrow.</p>
         <hr class="hero-rule">
-        <p class="hero-sub">The performance supplement for professionals who drink.<br>Eliminate brain fog. Protect your edge.</p>
+        <p class="hero-sub">The performance supplement for professionals who drink.<br>Wake up sharp. No exceptions.</p>
         <div class="hero-ctas">
-          <a href="#products" class="btn-primary">Find Your Formula</a>
-          <a href="#science" class="btn-ghost">Learn How It Works</a>
+          <a href="#products" class="btn-primary">Try SYN &mdash; From $70/month</a>
+          <a href="#science" class="btn-ghost">See How It Works</a>
+        </div>
+        <div class="hero-guarantee">
+          <span class="guarantee-icon">&#10003;</span>
+          <span>30-Day Money-Back Guarantee &bull; Free Shipping &bull; Cancel Anytime</span>
         </div>
       </div>
 
@@ -972,6 +1074,26 @@
     </div>
   </div>
 
+  <!-- Stats Band -->
+  <section class="stats-band">
+    <div class="stats-inner stagger">
+      <div class="stat-item">
+        <div class="stat-number">94%</div>
+        <div class="stat-label">Report Clearer Mornings</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-number">4.9&#9733;</div>
+        <div class="stat-label">Avg. Customer Rating</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-number">86%</div>
+        <div class="stat-label">Reorder Within 30 Days</div>
+      </div>
+    </div>
+  </section>
+
   <!-- Problem / Agitate -->
   <section class="problem-section">
     <div class="problem-editorial">
@@ -985,6 +1107,9 @@
       </div>
       <div class="problem-emphasis reveal" data-delay="400">
         <em>Live tonight. Lead tomorrow.</em>
+      </div>
+      <div class="reveal" data-delay="500" style="margin-top:2.5rem;">
+        <a href="#science" class="btn-ghost">See How It Works</a>
       </div>
     </div>
   </section>
@@ -1066,6 +1191,12 @@
         <h2 class="product-name" id="productName">SYN-2</h2>
         <p class="product-tagline" id="productTagline">Cognitive Clarity</p>
 
+        <div class="pricing-testimonial-pullquote">
+          <div class="pullquote-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div class="pullquote-text">&ldquo;Three client dinners in one week and I didn't miss a beat. This isn't a hangover cure&mdash;it's a performance tool.&rdquo;</div>
+          <div class="pullquote-author">&mdash; Marcus T., VP Investment Banking, JP Morgan</div>
+        </div>
+
         <!-- Variant tabs -->
         <div class="variant-tabs">
           <button class="variant-tab" data-variant="syn1" onclick="selectVariant('syn1')">
@@ -1099,7 +1230,9 @@
               </ul>
             </div>
             <div>
-              <div class="purchase-option-price"><span id="subPrice">$115</span>/mo <span class="orig" id="subOrig">$135</span></div>
+              <div class="purchase-option-price"><span id="subPrice">$115</span>/mo <span class="orig" id="subOrig">$135</span>
+                <div class="price-daily" id="priceDaily">$12 for a better morning</div>
+              </div>
             </div>
           </div>
         </div>
@@ -1116,9 +1249,30 @@
           <div class="onetime-price" id="onetimePrice">$135</div>
         </div>
 
+        <!-- Guarantee badge -->
+        <div class="product-guarantee-badge">
+          <strong>Risk-Free Trial:</strong> 30-day money-back guarantee. No questions asked.
+        </div>
+
         <!-- Add to cart -->
-        <button class="add-to-cart" id="cartBtn" onclick="addToCart()">Add to Cart &rarr;</button>
+        <button class="add-to-cart" id="cartBtn" onclick="addToCart()">Start Subscription &rarr;</button>
         <a href="#ingredients" class="view-facts">View Supplement Facts</a>
+
+        <!-- Trust badges -->
+        <div class="trust-badge-row">
+          <div class="badge-item">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+            <span>GMP Certified</span>
+          </div>
+          <div class="badge-item">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            <span>FDA Registered</span>
+          </div>
+          <div class="badge-item">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM10 17l-3.5-3.5 1.41-1.41L10 14.17l5.59-5.59L17 10l-7 7z"/></svg>
+            <span>Third-Party Tested</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1299,6 +1453,11 @@
       </div>
     </div>
   </section>
+
+  <!-- Post-Testimonials CTA -->
+  <div style="text-align:center;padding:0 2rem 4rem;background:var(--green-deepest);" class="reveal">
+    <a href="#products" class="btn-primary">Join 10,000+ Executives</a>
+  </div>
 
   <!-- Logo Row -->
   <div class="logo-row-section">
@@ -1498,6 +1657,34 @@
         <div class="faq-a"><p>Most hangover products focus on physical symptoms or are designed for weekend partying. SYN is formulated specifically for cognitive clarity&mdash;the #1 concern for high performers who need to show up sharp for morning meetings.</p></div>
       </div>
       <div class="faq-item reveal" data-delay="300">
+        <button class="faq-q"><span>Does this actually work?</span><span class="faq-icon">+</span></button>
+        <div class="faq-a">
+          <p>For most people, yes. NAC is well-studied for supporting glutathione production, which helps metabolize acetaldehyde (the toxic alcohol byproduct that causes brain fog). Alpha-GPC supports cognitive function. Clinical doses matter&mdash;that's why we use 600mg NAC, not 100mg like most competitors.</p>
+          <p style="margin-top:0.8rem;">That said, biochemistry varies. Some people report zero brain fog. Others notice mild improvement. We offer a 30-day money-back guarantee so you can test it risk-free.</p>
+        </div>
+      </div>
+      <div class="faq-item reveal" data-delay="350">
+        <button class="faq-q"><span>Why is SYN more expensive than other hangover products?</span><span class="faq-icon">+</span></button>
+        <div class="faq-a">
+          <p><strong>1. Clinical doses.</strong> We use 600mg NAC + up to 300mg Alpha-GPC. Most competitors use underdosed proprietary blends.</p>
+          <p style="margin-top:0.8rem;"><strong>2. Different target.</strong> Other products are for weekend partying. SYN is for executives who drink 3&ndash;5 times per week for work and can't afford brain fog the next morning. If you're only having 1&ndash;2 drinks occasionally, SYN-1 at $70/mo may be all you need.</p>
+        </div>
+      </div>
+      <div class="faq-item reveal" data-delay="400">
+        <button class="faq-q"><span>How is this different from just taking NAC pills?</span><span class="faq-icon">+</span></button>
+        <div class="faq-a">
+          <p>You could buy NAC separately. But you'd need: NAC (600mg), Alpha-GPC (200mg), B-complex, electrolytes, milk thistle, and date palm extract. That's 6+ bottles.</p>
+          <p style="margin-top:0.8rem;">SYN combines them in clinical doses, in the right ratios, in convenient capsule servings. Plus we add liver support, nootropics, and electrolytes. It's a complete system.</p>
+        </div>
+      </div>
+      <div class="faq-item reveal" data-delay="450">
+        <button class="faq-q"><span>What's your refund policy?</span><span class="faq-icon">+</span></button>
+        <div class="faq-a">
+          <p>30-day money-back guarantee. If SYN doesn't work for you, email us and we'll refund your first order. No questions asked. You keep the product.</p>
+          <p style="margin-top:0.8rem;">We're confident it works for most people, but biochemistry varies.</p>
+        </div>
+      </div>
+      <div class="faq-item reveal" data-delay="500">
         <button class="faq-q">Is it safe to take every day?<span class="faq-icon">+</span></button>
         <div class="faq-a"><p>Yes. All ingredients are well-tolerated and safe for daily use. Many customers take SYN 2&ndash;4 times per week for regular client dinners.</p></div>
       </div>
@@ -1521,10 +1708,10 @@
     <div class="hero-glow" style="width:400px;height:400px;"></div>
     <div class="reveal" style="position:relative;z-index:2;">
       <h2 class="cta-title">Wake Up Ready. Not Recovering.</h2>
-      <p class="cta-sub">Join high performers who never choose between networking and showing up.</p>
+      <p class="cta-sub">Join 10,000+ executives who never choose between networking and performing.</p>
       <div class="cta-buttons">
-        <button class="btn-primary" onclick="quickAddToCart('syn2')">Add SYN-2 to Cart &mdash; $115/mo</button>
-        <a href="#products" class="btn-ghost">Browse All Products</a>
+        <button class="btn-primary" onclick="quickAddToCart('syn2')">Get SYN &mdash; Founding Pricing</button>
+        <a href="#products" class="btn-ghost">Compare All Products</a>
       </div>
       <div class="trust-badges reveal" data-delay="200">
         <span class="trust-badge">GMP Certified</span>
@@ -2023,11 +2210,23 @@
     }, { threshold: 0 });
     stickyObs.observe(heroSection);
 
+    // ── Price Daily Update ──
+    const servingFrames = {
+      syn1: '$9 for a better morning',
+      syn2: '$12 for a better morning',
+      syn3: '$16 for a better morning'
+    };
+    function updatePriceDaily() {
+      const el = document.getElementById('priceDaily');
+      if (el) el.textContent = servingFrames[currentVariant] || '$12 for a better morning';
+    }
+
     // Update sticky CTA when variant changes
     const origSelectVariant = selectVariant;
     selectVariant = function(key) {
       origSelectVariant(key);
       updateStickyCta();
+      updatePriceDaily();
     };
     const origSelectPurchase = selectPurchase;
     selectPurchase = function(type) {
@@ -2082,23 +2281,63 @@
       const stickyTierSub = document.getElementById('stickyTierSub');
       const tierNames = { '1': 'Capsule 1', '2': 'Capsule 2', '3': 'Capsule 3' };
       const tierSubs = { '1': 'In All Products', '2': 'SYN-2 & SYN-3', '3': 'SYN-3 Only' };
+      let activeTier = '1';
 
       const tierObs = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             const tier = entry.target.dataset.tier;
-            stickyCaps.forEach(cap => {
-              cap.style.transition = 'opacity 0.4s ease';
-              cap.style.opacity = cap.dataset.tier <= tier ? '0.9' : '0.15';
-            });
-            if (stickyTierName) stickyTierName.textContent = tierNames[tier] || '';
-            if (stickyTierSub) stickyTierSub.textContent = tierSubs[tier] || '';
+            if (tier !== activeTier) {
+              activeTier = tier;
+              stickyCaps.forEach(cap => {
+                cap.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                const isActive = cap.dataset.tier <= tier;
+                cap.style.opacity = isActive ? '0.9' : '0.15';
+                cap.style.transform = isActive ? 'scale(1.05)' : 'scale(1)';
+              });
+              if (stickyTierName) stickyTierName.textContent = tierNames[tier] || '';
+              if (stickyTierSub) stickyTierSub.textContent = tierSubs[tier] || '';
+            }
           }
         });
-      }, { threshold: 0.4, rootMargin: '-20% 0px -40% 0px' });
+      }, { threshold: 0.1, rootMargin: '-10% 0px -50% 0px' });
 
       tierGroups.forEach(g => tierObs.observe(g));
     }
+
+    // ── Analytics: Scroll Depth & CTA Tracking ──
+    (function() {
+      const tracked = {};
+      window.addEventListener('scroll', () => {
+        const scrollPct = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+        [25, 50, 75, 100].forEach(depth => {
+          if (scrollPct >= depth && !tracked[depth]) {
+            tracked[depth] = true;
+            if (typeof gtag === 'function') gtag('event', 'scroll_depth', { depth: depth + '%' });
+            console.log('Scroll depth:', depth + '%');
+          }
+        });
+      }, { passive: true });
+
+      // CTA click tracking
+      document.querySelectorAll('.btn-primary, .btn-ghost, .add-to-cart, .compare-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const section = btn.closest('section')?.className?.split(' ')[0] || 'unknown';
+          const text = btn.textContent.trim().substring(0, 40);
+          if (typeof gtag === 'function') gtag('event', 'cta_click', { section, cta_text: text });
+          console.log('CTA click:', section, text);
+        });
+      });
+
+      // FAQ open tracking
+      document.querySelectorAll('.faq-q').forEach(q => {
+        q.addEventListener('click', () => {
+          const question = q.textContent.replace('+', '').trim().substring(0, 60);
+          if (typeof gtag === 'function') gtag('event', 'faq_open', { question });
+          console.log('FAQ open:', question);
+        });
+      });
+    })();
   </script>
 </body>
 </html>
