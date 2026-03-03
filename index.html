@@ -488,7 +488,7 @@
     .experts-inner .section-label { text-align: center; margin-bottom: 2rem; }
     .experts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
     .expert-card { display: flex; gap: 1.2rem; padding: 1.5rem; border: 1px solid var(--divider); background: var(--cream); }
-    .expert-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--green-deep); color: var(--cream); font-family: var(--font-body); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.05em; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .expert-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--green-deep); color: var(--cream); font-family: var(--font-body); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.05em; display: flex; align-items: center; justify-content: center; flex-shrink: 0; object-fit: cover; }
     .expert-name { font-family: var(--font-display); font-size: 1.14rem; font-weight: 600; color: var(--text); }
     .expert-cred { font-family: var(--font-body); font-size: 0.86rem; color: var(--green-sage); margin-bottom: 0.6rem; }
     .expert-quote { font-family: var(--font-body); font-size: 1.06rem; font-weight: 400; color: var(--text-dim); line-height: 1.65; font-style: italic; }
@@ -838,7 +838,7 @@
       <span class="section-label">Trusted by Experts</span>
       <div class="experts-grid">
         <div class="expert-card">
-          <div class="expert-avatar">Dr. R.M.</div>
+          <img class="expert-avatar" src="images/expert-1.png" alt="Dr. Rachel Mitchell" loading="lazy">
           <div class="expert-info">
             <div class="expert-name">Dr. Rachel Mitchell, MD</div>
             <div class="expert-cred">Hepatologist, NYU Langone Health</div>
@@ -846,7 +846,7 @@
           </div>
         </div>
         <div class="expert-card">
-          <div class="expert-avatar">Dr. J.P.</div>
+          <img class="expert-avatar" src="images/expert-3.png" alt="Dr. James Park" loading="lazy">
           <div class="expert-info">
             <div class="expert-name">Dr. James Park, PhD</div>
             <div class="expert-cred">Neuroscientist, Stanford School of Medicine</div>
@@ -1048,7 +1048,7 @@
           </div>
         </div>
         <div class="bg-col bg-center">
-          <img src="images/03-members-club.png" alt="SYN capsule trio on marble surface" loading="lazy">
+          <img src="images/08-three-tiers.png" alt="SYN three capsule tiers with ingredients" loading="lazy">
         </div>
         <div class="bg-col">
           <div class="bg-card">
@@ -1143,6 +1143,11 @@
       </div>
     </div>
   </section>
+
+  <!-- Lifestyle Image Strip -->
+  <div class="img-strip">
+    <img src="images/11-morning-lifestyle.png" alt="Executive morning routine with SYN" loading="lazy">
+  </div>
 
   <!-- Cost Comparison -->
   <section class="cost-compare-section section-divider">
