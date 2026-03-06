@@ -12,9 +12,12 @@
       --cream: #F5F1EB;
       --cream-alt: #EDE9E1;
       --green-deep: #1B4332;
+      --green-mid: #2D6A4F;
       --green-sage: #5A7A5E;
+      --green-dark: #0F2B1F;
       --gold: #C9A84C;
       --gold-warm: #D4AF5A;
+      --gold-light: #E8D5A0;
       --text: #1A1A1A;
       --text-dim: #777;
       --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
@@ -32,6 +35,16 @@
       overflow-x: hidden;
     }
 
+    /* ========== GRAIN OVERLAY (global) ========== */
+    .grain {
+      position: fixed;
+      inset: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
+
     /* ========== HERO SECTION ========== */
     .hero {
       position: relative;
@@ -45,18 +58,6 @@
       overflow: hidden;
     }
 
-    /* Subtle grain overlay */
-    .hero::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      opacity: 0.03;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 50;
-    }
-
-    /* ========== HEADER ========== */
     .hero-header {
       display: flex;
       justify-content: space-between;
@@ -100,10 +101,8 @@
     .hero-nav a:nth-child(2) { animation-delay: 0.4s; }
     .hero-nav a:nth-child(3) { animation-delay: 0.5s; }
     .hero-nav a:nth-child(4) { animation-delay: 0.6s; }
-
     .hero-nav a:hover { color: var(--green-deep); }
 
-    /* Mobile hamburger */
     .hero-hamburger {
       display: none;
       flex-direction: column;
@@ -126,7 +125,6 @@
     .hero-hamburger span:nth-child(2) { width: 24px; }
     .hero-hamburger span:nth-child(3) { width: 18px; }
 
-    /* ========== MAIN CONTENT GRID ========== */
     .hero-grid {
       display: grid;
       grid-template-columns: 1fr 1.2fr 1fr;
@@ -139,7 +137,6 @@
       z-index: 20;
     }
 
-    /* Left column — body copy */
     .hero-left {
       opacity: 0;
       transform: translateY(20px);
@@ -183,7 +180,6 @@
       transform: scaleX(1);
     }
 
-    /* Center column — product image + circle */
     .hero-center {
       display: flex;
       justify-content: center;
@@ -226,7 +222,6 @@
                  capsuleFloat 4s ease-in-out 1.5s infinite;
     }
 
-    /* Right column — big overlay text */
     .hero-right {
       display: flex;
       align-items: center;
@@ -252,7 +247,6 @@
       color: var(--gold);
     }
 
-    /* ========== FOOTER ========== */
     .hero-footer {
       display: flex;
       justify-content: space-between;
@@ -300,31 +294,330 @@
       animation: fadeInUp 0.5s ease-out 1.4s forwards;
     }
 
+    .scroll-cue {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      z-index: 30;
+      opacity: 0;
+      animation: fadeInUp 0.5s ease-out 1.8s forwards;
+    }
+
+    .scroll-cue span {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .scroll-cue .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--text-dim), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.3); transform-origin: top; }
+    }
+
+    /* ========== CAPSULE REVEAL — MEGA SECTION ========== */
+    /* This section is tall so the pin + scrub has room to breathe */
+    .capsule-section {
+      position: relative;
+      height: 400vh;
+    }
+
+    /* This is the pinned viewport that stays on screen */
+    .capsule-pin {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Background — starts cream, transitions to dark green */
+    .capsule-bg {
+      position: absolute;
+      inset: 0;
+      background: var(--green-dark);
+      opacity: 0;
+      z-index: 0;
+    }
+
+    /* The floating pill image from the hero — gets repositioned here */
+    .zoom-pill {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 340px;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 60px 25px rgba(20, 20, 15, 0.25));
+      z-index: 5;
+      opacity: 0;
+    }
+
+    /* SVG capsule halves — HORIZONTAL layout */
+    .capsule-stage {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px;
+      height: 160px;
+      z-index: 5;
+      opacity: 0;
+    }
+
+    .capsule-half {
+      position: absolute;
+      top: 0;
+      height: 100%;
+    }
+
+    .capsule-left { left: 0; width: 50%; }
+    .capsule-right { right: 0; width: 50%; }
+
+    .capsule-half svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 8px 30px rgba(0,0,0,0.3));
+    }
+
+    /* Center glow — relative to capsule-stage */
+    .capsule-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,0.25) 0%, transparent 70%);
+      opacity: 0;
+      z-index: 4;
+    }
+
+    /* Particles — relative to capsule-stage */
+    .particle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0;
+      z-index: 6;
+    }
+
+    /* Intro text */
+    .capsule-intro {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      opacity: 0;
+      z-index: 10;
+      white-space: nowrap;
+    }
+
+    .capsule-intro .label {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .capsule-intro h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.1;
+    }
+
+    .capsule-intro h2 em {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--gold);
+    }
+
+    /* ========== INGREDIENT COLUMNS ========== */
+    .ingredient-col {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      z-index: 10;
+      width: 320px;
+    }
+
+    .ingredient-col.col-left {
+      right: calc(50% + 60px);
+    }
+
+    .ingredient-col.col-right {
+      left: calc(50% + 60px);
+    }
+
+    .ingredient-node {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      opacity: 0;
+    }
+
+    .ingredient-col.col-left .ingredient-node {
+      flex-direction: row;
+      justify-content: flex-end;
+      text-align: right;
+    }
+
+    .ingredient-col.col-left .ingredient-info {
+      align-items: flex-end;
+    }
+
+    .ingredient-col.col-right .ingredient-node {
+      flex-direction: row;
+      justify-content: flex-start;
+    }
+
+    .ingredient-dot {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, var(--gold-warm), var(--gold));
+      box-shadow: 0 0 25px rgba(201, 168, 76, 0.35), 0 0 80px rgba(201, 168, 76, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .ingredient-dot::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 1px solid rgba(201, 168, 76, 0.25);
+    }
+
+    .ingredient-dot svg {
+      width: 28px;
+      height: 28px;
+      stroke: var(--green-dark);
+      stroke-width: 1.8;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .ingredient-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .ingredient-name {
+      font-family: var(--font-body);
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: #fff;
+      letter-spacing: 0.02em;
+    }
+
+    .ingredient-dose {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      font-weight: 300;
+      color: var(--gold-light);
+      letter-spacing: 0.06em;
+    }
+
+    .ingredient-function {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.4;
+    }
+
+    /* Summary — positioned in the pinned viewport, not inside capsule-stage */
+    .capsule-summary {
+      position: absolute;
+      bottom: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      opacity: 0;
+      z-index: 10;
+      white-space: nowrap;
+    }
+
+    .capsule-summary .total {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.3rem;
+    }
+
+    .capsule-summary .total span {
+      color: var(--gold);
+    }
+
+    .capsule-summary .sub {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    /* ========== CONTINUATION ========== */
+    .continue-section {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--cream);
+    }
+
+    .continue-section p {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+    }
+
     /* ========== ANIMATIONS ========== */
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-
-    @keyframes fadeInLeft {
-      to { opacity: 1; transform: translateX(0); }
-    }
-
-    @keyframes fadeInRight {
-      to { opacity: 1; transform: translateX(0); }
-    }
-
-    @keyframes fadeInUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes circleIn {
-      to { opacity: 0.9; transform: scale(1); }
-    }
-
-    @keyframes productIn {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
+    @keyframes fadeIn { to { opacity: 1; } }
+    @keyframes fadeInLeft { to { opacity: 1; transform: translateX(0); } }
+    @keyframes fadeInRight { to { opacity: 1; transform: translateX(0); } }
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+    @keyframes circleIn { to { opacity: 0.9; transform: scale(1); } }
+    @keyframes productIn { to { opacity: 1; transform: translateY(0); } }
     @keyframes capsuleFloat {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-14px); }
@@ -332,80 +625,49 @@
 
     /* ========== RESPONSIVE ========== */
     @media (max-width: 1024px) {
-      .hero-circle {
-        width: 300px;
-        height: 300px;
-      }
-
-      .hero-product-img {
-        width: 260px;
-      }
-
-      .hero-title {
-        font-size: clamp(2.5rem, 5vw, 4.5rem);
-      }
+      .hero-circle { width: 300px; height: 300px; }
+      .hero-product-img { width: 260px; }
+      .hero-title { font-size: clamp(2.5rem, 5vw, 4.5rem); }
+      .zoom-pill { width: 260px; }
+      .ingredient-function { display: none; }
     }
 
     @media (max-width: 768px) {
-      .hero {
-        padding: 2rem;
-        min-height: 100vh;
-      }
-
+      .hero { padding: 2rem; min-height: 100vh; }
       .hero-nav { display: none; }
       .hero-hamburger { display: flex; }
-
       .hero-grid {
         grid-template-columns: 1fr;
         grid-template-rows: auto 1fr auto;
         text-align: center;
         gap: 2rem;
       }
+      .hero-left { order: 2; }
+      .hero-left p { max-width: 100%; margin: 0 auto; }
+      .hero-center { order: 1; min-height: 320px; }
+      .hero-circle { width: 240px; height: 240px; }
+      .hero-product-img { width: 220px; }
+      .hero-right { order: 3; justify-content: center; text-align: center; }
+      .hero-title { font-size: 3.5rem; }
+      .hero-footer { flex-direction: column; gap: 1rem; }
 
-      .hero-left {
-        order: 2;
-      }
-
-      .hero-left p {
-        max-width: 100%;
-        margin: 0 auto;
-      }
-
-      .hero-center {
-        order: 1;
-        min-height: 320px;
-      }
-
-      .hero-circle {
-        width: 240px;
-        height: 240px;
-      }
-
-      .hero-product-img {
-        width: 220px;
-      }
-
-      .hero-right {
-        order: 3;
-        justify-content: center;
-        text-align: center;
-      }
-
-      .hero-title {
-        font-size: 3.5rem;
-      }
-
-      .hero-footer {
-        flex-direction: column;
-        gap: 1rem;
-      }
+      .zoom-pill { width: 200px; }
+      .capsule-section { height: 450vh; }
+      .capsule-stage { width: 90px; height: 270px; }
+      .ingredient-dot { width: 34px; height: 34px; }
+      .ingredient-dot svg { width: 16px; height: 16px; }
+      .ingredient-name { font-size: 0.7rem; }
+      .ingredient-dose { font-size: 0.58rem; }
+      .ingredient-function { display: none; }
     }
   </style>
 </head>
 <body>
 
+  <div class="grain"></div>
+
+  <!-- ============ HERO ============ -->
   <section class="hero">
-    <!-- Header -->
     <header class="hero-header">
       <div class="hero-logo">SYN</div>
       <nav class="hero-nav">
@@ -415,59 +677,285 @@
         <a href="#compare">Compare</a>
       </nav>
       <button class="hero-hamburger" aria-label="Open menu">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </button>
     </header>
 
-    <!-- Main Grid -->
     <div class="hero-grid">
-      <!-- Left: Body copy -->
       <div class="hero-left">
         <p>Clinical-dose NAC and botanical liver support in a single serving. Designed for professionals who drink for work and can't afford to lose a morning.</p>
         <a href="#product" class="read-more">Explore the formula</a>
       </div>
-
-      <!-- Center: Product image + gold circle -->
       <div class="hero-center">
         <div class="hero-circle"></div>
-        <img
-          src="images/capsule-floating.png"
-          alt="SYN premium supplement capsule floating"
-          class="hero-product-img"
-        >
+        <img src="images/capsule-floating.png" alt="SYN premium supplement capsule floating" class="hero-product-img">
       </div>
-
-      <!-- Right: Big title -->
       <div class="hero-right">
         <h1 class="hero-title">
-          Live<br>
-          Tonight.<br>
+          Live<br>Tonight.<br>
           <span class="line-accent">Lead<br>Tomorrow.</span>
         </h1>
       </div>
     </div>
 
-    <!-- Footer -->
     <footer class="hero-footer">
       <div class="hero-socials">
-        <!-- Instagram -->
         <a href="#" aria-label="Instagram">
           <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
         </a>
-        <!-- Twitter/X -->
         <a href="#" aria-label="Twitter">
           <svg viewBox="0 0 24 24"><path d="M4 4l6.5 8L4 20h2l5.5-6.8L16 20h4l-6.8-8.5L19.5 4H18l-5 6.2L9 4H4z"/></svg>
         </a>
-        <!-- LinkedIn -->
         <a href="#" aria-label="LinkedIn">
           <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
         </a>
       </div>
       <div class="hero-tagline">Formulated for high performers</div>
     </footer>
+
+    <div class="scroll-cue">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
   </section>
+
+  <!-- ============ CAPSULE REVEAL ============ -->
+  <section class="capsule-section" id="product">
+    <div class="capsule-pin">
+
+      <!-- Dark background layer -->
+      <div class="capsule-bg"></div>
+
+      <!-- The pill image (same as hero) — zooms to center -->
+      <img src="images/capsule-floating.png" alt="" class="zoom-pill">
+
+      <!-- SVG capsule halves — HORIZONTAL (left=round end, right=round end) -->
+      <div class="capsule-stage">
+        <!-- Left half (rounded left end, flat right edge — flush to center) -->
+        <div class="capsule-left capsule-half">
+          <svg viewBox="0 0 185 120" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="gleft" x1="0" y1="0" x2="1" y2="0.5">
+                <stop offset="0%" stop-color="#0F2B1F"/>
+                <stop offset="50%" stop-color="#1B4332"/>
+                <stop offset="100%" stop-color="#2D6A4F"/>
+              </linearGradient>
+              <linearGradient id="hleft" x1="0" y1="0.2" x2="0" y2="0.8">
+                <stop offset="0%" stop-color="rgba(255,255,255,0.12)"/>
+                <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+              </linearGradient>
+            </defs>
+            <path d="M185,5 L55,5 Q5,5 5,60 Q5,115 55,115 L185,115 Z" fill="url(#gleft)"/>
+            <path d="M185,25 L55,25 Q22,25 22,60 Q22,75 30,82 L185,82 Z" fill="url(#hleft)" opacity="0.45"/>
+            <rect x="170" y="5" width="15" height="110" rx="2" fill="rgba(0,0,0,0.12)"/>
+          </svg>
+        </div>
+        <!-- Right half (flat left edge, rounded right end — flush to center) -->
+        <div class="capsule-right capsule-half">
+          <svg viewBox="0 0 185 120" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="gright" x1="0" y1="0" x2="1" y2="0.5">
+                <stop offset="0%" stop-color="#2D6A4F"/>
+                <stop offset="50%" stop-color="#1B4332"/>
+                <stop offset="100%" stop-color="#143728"/>
+              </linearGradient>
+              <linearGradient id="hright" x1="0" y1="0.2" x2="0" y2="0.8">
+                <stop offset="0%" stop-color="rgba(255,255,255,0.1)"/>
+                <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+              </linearGradient>
+            </defs>
+            <path d="M0,5 L130,5 Q180,5 180,60 Q180,115 130,115 L0,115 Z" fill="url(#gright)"/>
+            <path d="M0,25 L130,25 Q163,25 163,60 Q163,75 155,82 L0,82 Z" fill="url(#hright)" opacity="0.4"/>
+            <rect x="0" y="5" width="15" height="110" rx="2" fill="rgba(0,0,0,0.12)"/>
+          </svg>
+        </div>
+
+        <!-- Center glow (inside stage for centering) -->
+        <div class="capsule-glow"></div>
+
+        <!-- Particles (inside stage for centering) -->
+        <div class="particle" style="--px:-80; --py:-40"></div>
+        <div class="particle" style="--px:60; --py:-70"></div>
+        <div class="particle" style="--px:-50; --py:30"></div>
+        <div class="particle" style="--px:90; --py:15"></div>
+        <div class="particle" style="--px:-30; --py:-80"></div>
+        <div class="particle" style="--px:40; --py:55"></div>
+
+      </div>
+
+      <!-- Intro text -->
+      <div class="capsule-intro">
+        <span class="label">SYN-1 Foundation</span>
+        <h2>What's <em>inside</em></h2>
+      </div>
+
+      <!-- LEFT COLUMN (text right-aligned, dot on right side toward capsule) -->
+      <div class="ingredient-col col-left">
+        <div class="ingredient-node" id="ing5">
+          <div class="ingredient-info"><span class="ingredient-name">Turmeric + Piperine</span><span class="ingredient-dose">45mg</span><span class="ingredient-function">Anti-inflammatory</span></div>
+          <div class="ingredient-dot"><svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3z"/></svg></div>
+        </div>
+        <div class="ingredient-node" id="ing6">
+          <div class="ingredient-info"><span class="ingredient-name">Grape Seed</span><span class="ingredient-dose">40mg</span><span class="ingredient-function">Polyphenol antioxidant</span></div>
+          <div class="ingredient-dot"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8" stroke-dasharray="3 3"/></svg></div>
+        </div>
+        <div class="ingredient-node" id="ing7">
+          <div class="ingredient-info"><span class="ingredient-name">Amla Extract</span><span class="ingredient-dose">35mg</span><span class="ingredient-function">Natural vitamin C</span></div>
+          <div class="ingredient-dot"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg></div>
+        </div>
+        <div class="ingredient-node" id="ing8">
+          <div class="ingredient-info"><span class="ingredient-name">Electrolytes + B6</span><span class="ingredient-dose">35mg</span><span class="ingredient-function">Hydration support</span></div>
+          <div class="ingredient-dot"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        </div>
+        <div class="ingredient-node" id="ing9">
+          <div class="ingredient-info"><span class="ingredient-name">Phyllanthus Amarus</span><span class="ingredient-dose">25mg</span><span class="ingredient-function">Ayurvedic liver herb</span></div>
+          <div class="ingredient-dot"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN (dot on left side toward capsule, text left-aligned) -->
+      <div class="ingredient-col col-right">
+        <div class="ingredient-node" id="ing0">
+          <div class="ingredient-dot"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+          <div class="ingredient-info"><span class="ingredient-name">NAC</span><span class="ingredient-dose">200mg</span><span class="ingredient-function">Glutathione precursor</span></div>
+        </div>
+        <div class="ingredient-node" id="ing1">
+          <div class="ingredient-dot"><svg viewBox="0 0 24 24"><path d="M12 22c-4.97 0-9-2.69-9-6v-4c0 3.31 4.03 6 9 6s9-2.69 9-6v4c0 3.31-4.03 6-9 6z"/><path d="M12 14c-4.97 0-9-2.69-9-6s4.03-6 9-6 9 2.69 9 6-4.03 6-9 6z"/></svg></div>
+          <div class="ingredient-info"><span class="ingredient-name">Milk Thistle</span><span class="ingredient-dose">150mg</span><span class="ingredient-function">Hepatoprotective</span></div>
+        </div>
+        <div class="ingredient-node" id="ing2">
+          <div class="ingredient-dot"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+          <div class="ingredient-info"><span class="ingredient-name">Date Palm</span><span class="ingredient-dose">60mg</span><span class="ingredient-function">Antioxidant</span></div>
+        </div>
+        <div class="ingredient-node" id="ing3">
+          <div class="ingredient-dot"><svg viewBox="0 0 24 24"><path d="M7 17V3h10v14l-5 3z"/><path d="M7 3V1h10v2"/></svg></div>
+          <div class="ingredient-info"><span class="ingredient-name">Andrographis</span><span class="ingredient-dose">50mg</span><span class="ingredient-function">Detox pathways</span></div>
+        </div>
+        <div class="ingredient-node" id="ing4">
+          <div class="ingredient-dot"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7z"/></svg></div>
+          <div class="ingredient-info"><span class="ingredient-name">Ginger Root</span><span class="ingredient-dose">50mg</span><span class="ingredient-function">Anti-nausea</span></div>
+        </div>
+      </div>
+
+      <!-- Summary -->
+      <div class="capsule-summary">
+        <div class="total"><span>650mg</span> active per serving</div>
+        <div class="sub">10 clinical-grade ingredients · 8 capsules</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ CONTINUATION ============ -->
+  <section class="continue-section">
+    <p>— Rest of site continues here —</p>
+  </section>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    const bg        = document.querySelector('.capsule-bg');
+    const zoomPill  = document.querySelector('.zoom-pill');
+    const stage     = document.querySelector('.capsule-stage');
+    const capLeft   = document.querySelector('.capsule-left');
+    const capRight  = document.querySelector('.capsule-right');
+    const glow      = document.querySelector('.capsule-glow');
+    const intro     = document.querySelector('.capsule-intro');
+    const summary   = document.querySelector('.capsule-summary');
+    const colLeft   = document.querySelector('.col-left');
+    const colRight  = document.querySelector('.col-right');
+    const nodes     = document.querySelectorAll('.ingredient-node');
+    const particles = document.querySelectorAll('.particle');
+
+    // Init: columns hidden, nodes hidden
+    gsap.set([colLeft, colRight], { opacity: 0 });
+    nodes.forEach(n => gsap.set(n, { opacity: 0, scale: 0.5 }));
+
+    // MASTER TIMELINE (scrubbed over 400vh)
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.capsule-section',
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 1.2,
+        pin: '.capsule-pin',
+        anticipatePin: 1,
+      }
+    });
+
+    // PHASE 1: Background darkens + pill zooms in (0 → 0.15)
+    tl.to(bg, { opacity: 1, duration: 0.10, ease: 'none' }, 0);
+    tl.fromTo(zoomPill,
+      { opacity: 0, scale: 0.4 },
+      { opacity: 1, scale: 1.2, duration: 0.14, ease: 'power2.out' }, 0);
+    tl.fromTo(intro,
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 0.08, ease: 'power2.out' }, 0.04);
+
+    // PHASE 2: Swap pill → SVG capsule (0.14 → 0.20)
+    tl.to(zoomPill, { opacity: 0, scale: 1.5, duration: 0.04, ease: 'none' }, 0.14);
+    tl.fromTo(stage,
+      { opacity: 0, scale: 1.3 },
+      { opacity: 1, scale: 1, duration: 0.06, ease: 'power2.out' }, 0.16);
+
+    // PHASE 3: Split capsule + glow + particles (0.22 → 0.32)
+    tl.to(capLeft, { x: -200, duration: 0.10, ease: 'power3.inOut' }, 0.22);
+    tl.to(capRight, { x: 200, duration: 0.10, ease: 'power3.inOut' }, 0.22);
+    tl.to(glow, { opacity: 1, scale: 1.8, duration: 0.08, ease: 'power2.out' }, 0.24);
+
+    particles.forEach((p, i) => {
+      const px = parseInt(p.style.getPropertyValue('--px'));
+      const py = parseInt(p.style.getPropertyValue('--py'));
+      tl.to(p, { x: px * 2, y: py * 2, opacity: 0.7, duration: 0.08, ease: 'power2.out' }, 0.24 + i * 0.005);
+      tl.to(p, { opacity: 0, duration: 0.05 }, 0.34);
+    });
+
+    // PHASE 4: Capsule halves + glow FADE OUT (0.32 → 0.38)
+    tl.to(capLeft, { opacity: 0, x: -280, duration: 0.06, ease: 'power2.in' }, 0.32);
+    tl.to(capRight, { opacity: 0, x: 280, duration: 0.06, ease: 'power2.in' }, 0.32);
+    tl.to(glow, { opacity: 0, duration: 0.06 }, 0.34);
+
+    // PHASE 5: Ingredients appear — no capsule in the way (0.38 → 0.55)
+    tl.to([colLeft, colRight], { opacity: 1, duration: 0.04 }, 0.38);
+
+    const leftNodes = colLeft.querySelectorAll('.ingredient-node');
+    const rightNodes = colRight.querySelectorAll('.ingredient-node');
+
+    leftNodes.forEach((node, i) => {
+      tl.to(node, { opacity: 1, scale: 1, duration: 0.06, ease: 'back.out(1.4)' }, 0.39 + i * 0.02);
+    });
+    rightNodes.forEach((node, i) => {
+      tl.to(node, { opacity: 1, scale: 1, duration: 0.06, ease: 'back.out(1.4)' }, 0.39 + i * 0.02);
+    });
+
+    // PHASE 6: Show summary, fade intro (0.52 → 0.58)
+    tl.to(intro, { opacity: 0, y: -20, duration: 0.05 }, 0.52);
+    tl.fromTo(summary,
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.06, ease: 'power2.out' }, 0.55);
+
+    // PHASE 7: Hold — user reads (0.58 → 0.82)
+
+    // PHASE 8: Everything fades out (0.82 → 1.0)
+    nodes.forEach((node, i) => {
+      tl.to(node, { opacity: 0, scale: 0.5, duration: 0.04, ease: 'power2.in' }, 0.82 + i * 0.002);
+    });
+    tl.to([colLeft, colRight], { opacity: 0, duration: 0.04 }, 0.86);
+    tl.to(summary, { opacity: 0, y: -20, duration: 0.04 }, 0.88);
+    tl.to(stage, { opacity: 0, duration: 0.04 }, 0.90);
+    tl.to(bg, { opacity: 0, duration: 0.08, ease: 'none' }, 0.92);
+
+    // Hide scroll cue on scroll
+    ScrollTrigger.create({
+      trigger: '.capsule-section',
+      start: 'top 80%',
+      onEnter: () => gsap.to('.scroll-cue', { opacity: 0, duration: 0.3 }),
+    });
+  </script>
 
 </body>
 </html>
